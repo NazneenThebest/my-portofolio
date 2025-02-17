@@ -17,6 +17,7 @@
         body {
             background-color: #1D1F21;
             color: #FFF;
+            overflow-x: hidden;
         }
 
         header {
@@ -57,7 +58,12 @@
             justify-content: center;
             text-align: center;
             padding: 100px 20px 50px;
-            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .hero.fade-in {
+            opacity: 1;
         }
 
         .hero h1 {
@@ -99,14 +105,8 @@
             text-align: center;
         }
 
-        /* Tambahan padding-top agar tidak ketutupan navbar */
         #about, #portfolio, #contact {
             padding-top: 150px;
-        }
-
-        .about {
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         .portfolio img {
@@ -115,26 +115,6 @@
             margin: 20px auto;
             border-radius: 10px;
             display: block;
-        }
-
-        .portfolio p {
-            max-width: 800px;
-            margin: 0 auto 20px;
-            color: #A8A8A8;
-        }
-
-        .portfolio a {
-            display: inline-block;
-            background-color: #E63946;
-            color: #FFF;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-
-        .portfolio a:hover {
-            background-color: #D62828;
         }
 
         footer {
@@ -162,7 +142,7 @@
         }
     </style>
 </head>
-<body onload="showContent('home')">
+<body onload="showHomePage()">
 
     <header>
         <div class="logo">Nazneen Portfolio</div>
@@ -174,7 +154,7 @@
         </nav>
     </header>
 
-    <div id="home" class="hero active">
+    <div id="home" class="hero">
         <h1>Welcome to My Portfolio</h1>
         <p>Showcasing the best of my work in web design, development, and digital creativity. Explore my skills and projects!</p>
         <button class="btn" onclick="showContent('about')">Explore More</button>
@@ -187,7 +167,7 @@
 
     <div id="portfolio" class="content portfolio">
         <h2>Portfolio</h2>
-        <p>I specialize in property sales and digital marketing. One of the prime properties available is located at the heart of Jl. Cihampelas, Bandung, with a premium location offering a great opportunity for investment.</p>
+        <p>I specialize in property sales and digital marketing. Here are some of the prime properties I have worked on:</p>
         <img src="https://i.imgur.com/RM4VpC0.jpg" alt="Property 1">
         <img src="https://i.imgur.com/wDbK3aT.jpg" alt="Property 2">
         <img src="https://i.imgur.com/Uhwn49N.jpg" alt="Property 3">
@@ -197,7 +177,7 @@
     </div>
 
     <div id="contact" class="content contact">
-        <h2>Contact Me</h2>
+        <h2>Contact Me</h2> 
         <p>Feel free to reach out if you'd like to connect!</p>
         <p>Email: nazneenbafadhal@gmail.com</p>
         <a href="https://www.instagram.com/nazzbfdhl" target="_blank">My Instagram</a>
@@ -208,6 +188,11 @@
     </footer>
 
     <script>
+        function showHomePage() {
+            const home = document.querySelector('.hero');
+            home.classList.add('fade-in');
+        }
+
         function showContent(content) {
             document.querySelectorAll('.content').forEach(section => {
                 section.classList.remove('active');
