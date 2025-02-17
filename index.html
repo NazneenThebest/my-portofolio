@@ -12,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
         }
 
         body {
@@ -58,6 +57,7 @@
             justify-content: center;
             text-align: center;
             padding: 100px 20px 50px;
+            overflow: hidden;
         }
 
         .hero h1 {
@@ -92,13 +92,16 @@
         }
 
         .content {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
             display: none;
-            padding: 60px 20px;
             text-align: center;
         }
 
+        /* Tambahan padding-top agar tidak ketutupan navbar */
         #about, #portfolio, #contact {
-            padding-top: 100px;
+            padding-top: 150px;
         }
 
         .about {
@@ -107,10 +110,11 @@
         }
 
         .portfolio img {
-            width: 50%;
+            width: 60%;
             height: auto;
-            margin-bottom: 20px;
+            margin: 20px auto;
             border-radius: 10px;
+            display: block;
         }
 
         .portfolio p {
@@ -153,21 +157,8 @@
 
         .active {
             display: block;
-        }
-
-        .portfolio-btn {
-            background-color: #E63946;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 30px;
-        }
-
-        .portfolio-btn:hover {
-            background-color: #D62828;
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -191,8 +182,7 @@
 
     <div id="about" class="content about">
         <h2>About Me</h2>
-        <p>Hi, I'm Nazneen, a young investor, property sales professional, and a student passionate about technology and the world of cryptocurrency. I aim to bridge the gap between my interests in digital technologies and real estate investment. I’m constantly learning and adapting, keeping an eye on new opportunities in both sectors.</p>
-        <button class="portfolio-btn" onclick="showContent('portfolio')">Portfolio</button>
+        <p>Hi, I'm Nazneen, a young investor, property sales professional, and a student passionate about technology and the world of cryptocurrency. I aim to bridge the gap between my interests in digital technologies and real estate investment.</p>
     </div>
 
     <div id="portfolio" class="content portfolio">
@@ -219,13 +209,23 @@
 
     <script>
         function showContent(content) {
-            document.querySelectorAll('.content').forEach(section => section.style.display = 'none');
+            document.querySelectorAll('.content').forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
+            });
             document.querySelector('.hero').style.display = 'none';
+            
             if (content === 'home') {
                 document.querySelector('.hero').style.display = 'flex';
             } else {
-                document.getElementById(content).style.display = 'block';
+                const section = document.getElementById(content);
+                section.style.display = 'block';
+                setTimeout(() => {
+                    section.classList.add('active');
+                }, 50);
             }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
