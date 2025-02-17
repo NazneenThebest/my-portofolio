@@ -59,15 +59,8 @@
             text-align: center;
             padding: 100px 20px 50px;
             opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            display: none;
-        }
-
-        .hero.active {
-            display: flex;
-            opacity: 1;
-            transform: translateY(0);
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
         }
 
         .hero h1 {
@@ -102,47 +95,80 @@
         }
 
         .content {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
             display: none;
+            padding: 60px 20px;
             text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
         }
 
+        /* Tambahan padding-top agar tidak ketutupan navbar */
         #about, #portfolio, #contact {
             padding-top: 150px;
         }
 
+        .about {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .portfolio img {
-            width: 60%;
+            width: 70%;
             height: auto;
-            margin: 20px auto;
+            margin-bottom: 20px;
             border-radius: 10px;
-            display: block;
+        }
+
+        .portfolio p {
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: #A8A8A8;
+        }
+
+        .portfolio a {
+            display: inline-block;
+            background-color: #E63946;
+            color: #FFF;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .portfolio a:hover {
+            background-color: #D62828;
         }
 
         footer {
             text-align: center;
             padding: 20px;
             background: rgba(20, 20, 20, 0.9);
-            position: relative;
-            bottom: 0;
             width: 100%;
         }
 
         h2 {
-            margin-bottom: 20px;
+            margin-bottom: 90px;
         }
 
         p {
             margin-bottom: 20px;
-            line-height: 1.6;
+            line-height: 1.9;
         }
 
         .active {
             display: block;
-            opacity: 1;
-            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -158,7 +184,7 @@
         </nav>
     </header>
 
-    <div id="home" class="hero">
+    <div id="home" class="hero active">
         <h1>Welcome to My Portfolio</h1>
         <p>Showcasing the best of my work in web design, development, and digital creativity. Explore my skills and projects!</p>
         <button class="btn" onclick="showContent('about')">Explore More</button>
@@ -166,12 +192,20 @@
 
     <div id="about" class="content about">
         <h2>About Me</h2>
-        <p>Hi, I'm Nazneen, a young investor, property sales professional, and a student passionate about technology and the world of cryptocurrency. I aim to bridge the gap between my interests in digital technologies and real estate investment.</p>
+        <p>Hi, I'm Nazneen, a young investor, property sales professional, and a high school student with a passion for technology and cryptocurrency. Balancing my academic life with my entrepreneurial journey, I strive to bridge the gap between digital innovation and real estate investment.
+
+Even as a student, I've always been fascinated by the dynamic world of finance and technology. This curiosity led me to explore the world of cryptocurrency and blockchain technology. I believe that understanding these digital assets is essential in the modern investment landscape.
+
+Aside from my interest in digital finance, I also specialize in property sales, focusing on strategic investments that maximize value. My approach is to combine traditional real estate insights with innovative digital marketing strategies to reach a broader audience.
+
+I’m constantly learning and adapting, keeping an eye on new opportunities in both sectors. Through my journey, I aim to inspire other young individuals to pursue their dreams boldly and leverage technology to create impactful change.
+
+Feel free to explore my portfolio and get in touch if you want to learn more about my work or potential collaborations!</p>
     </div>
 
     <div id="portfolio" class="content portfolio">
         <h2>Portfolio</h2>
-        <p>I specialize in property sales and digital marketing. Here are some of the prime properties I have worked on:</p>
+        <p>I specialize in property sales and digital marketing. One of the prime properties available is located at the heart of Jl. Cihampelas, Bandung.</p>
         <img src="https://i.imgur.com/RM4VpC0.jpg" alt="Property 1">
         <img src="https://i.imgur.com/wDbK3aT.jpg" alt="Property 2">
         <img src="https://i.imgur.com/Uhwn49N.jpg" alt="Property 3">
@@ -181,30 +215,23 @@
     </div>
 
     <div id="contact" class="content contact">
-        <h2>Contact Me</h2> 
+        <h2>Contact Me</h2>
         <p>Feel free to reach out if you'd like to connect!</p>
         <p>Email: nazneenbafadhal@gmail.com</p>
         <a href="https://www.instagram.com/nazzbfdhl" target="_blank">My Instagram</a>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Nazneen Portfolio. All Rights Reserved.</p>
-    </footer>
+  <footer style="display: none;"></footer>
 
     <script>
         function showContent(content) {
-            document.querySelectorAll('.content, .hero').forEach(section => {
-                section.classList.remove('active');
-                section.style.display = 'none';
-            });
-            
-            const section = document.getElementById(content);
-            section.style.display = (content === 'home') ? 'flex' : 'block';
-            setTimeout(() => {
-                section.classList.add('active');
-            }, 50);
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll('.content').forEach(section => section.style.display = 'none');
+            document.querySelector('.hero').style.display = 'none';
+            if (content === 'home') {
+                document.querySelector('.hero').style.display = 'flex';
+            } else {
+                document.getElementById(content).style.display = 'block';
+            }
         }
     </script>
 </body>
